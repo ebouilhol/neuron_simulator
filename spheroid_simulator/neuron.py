@@ -1,4 +1,9 @@
-from math import dist, sqrt
+# -*- coding: utf-8 -*-
+# /usr/bin/python3.9
+
+# from math import dist, sqrt
+from math import dist
+from math import sqrt
 import random
 from point import Point
 from segment import Segment
