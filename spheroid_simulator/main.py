@@ -8,19 +8,19 @@ from spheroid import Spheroid
 
 if __name__ == "__main__":
 
-    img_size = 512
+    img_size = 1024
     centroid = Point(img_size / 2, img_size / 2)
     spheroid = Spheroid(
         centroid,
         neuron_number=200,
         cover_angle=360,
         min_radius=10,
-        max_radius=300,
+        max_radius=500,
         offset_delta=2,
         division_nb=3,
     )
     spheroid.create_neurons()
-    spheroid.add_random_neurons(10)
+    # spheroid.add_random_neurons(10)
 
     perlin_noise_level = random.choice([2, 4, 8, 16])
     poisson_noise_level = random.randint(50, 100)
@@ -59,5 +59,7 @@ if __name__ == "__main__":
                 seg.startPoint.x, seg.startPoint.y, seg.endPoint.x, seg.endPoint.y
             )
             img.noise_map[rr, cc] = val * neuron.intensity
+    img = spheroid.apply_gaussian_kernel(img.noise_map, kernel_size=100, std=100)
+
     plt.figure(dpi=1200)
     plt.imsave("test.png", img, cmap="gray")
