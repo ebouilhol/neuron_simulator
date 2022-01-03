@@ -1,8 +1,6 @@
 import math
 import random
 
-import numpy as np
-import scipy.stats as st
 from neuron import Neuron
 from point import Point
 from segment import Segment
@@ -21,6 +19,7 @@ class Spheroid:
         offset_delta,
         division_nb,
     ):
+        self.mask = None
         self.centroid = centroid
         self.neuron_number = neuron_number
         self.cover_angle = cover_angle
@@ -76,21 +75,3 @@ class Spheroid:
             n.make_neuron()
             n.interpolate_neuron()
             self.neuron_list.append(n)
-
-    def apply_gaussian_kernel(self, img, kernel_size, std):
-        """Returns a 2D Gaussian kernel."""
-        # ---- Create a 1D kernel of size kernel_size between values -std and std
-        x = np.linspace(-std, std, kernel_size + 1)
-        # ---- Calculate the difference between
-        # subsequent values over the cumulative distribution
-        kernel_1d = np.diff(st.norm.cdf(x))
-        # --- Goes 2D by the product of the kernel 1D by himself
-        kernel_2d = np.outer(kernel_1d, kernel_1d)
-        # normalize and return
-        kernel = kernel_2d / kernel_2d.sum()
-
-        for i in range(int(-kernel_size / 2), int(kernel_size / 2)):
-            for j in range(int(-kernel_size / 2), int(kernel_size / 2)):
-                img[self.centroid.x + i][self.centroid.y + j] = kernel[i + 1][j + 1]
-
-        return img
