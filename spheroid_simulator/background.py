@@ -90,3 +90,8 @@ class Background:
             amplitude *= persistence
 
         return noise
+
+    def smooth_background(self, sigma):
+        from scipy.ndimage import gaussian_filter
+
+        self.noise_map = gaussian_filter(self.noise_map, sigma=sigma)

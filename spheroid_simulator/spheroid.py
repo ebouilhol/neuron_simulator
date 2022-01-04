@@ -18,18 +18,23 @@ class Spheroid:
         max_radius,
         offset_delta,
         division_nb,
+        min_intensity,
+        max_intensity,
     ):
-        self.mask = None
+
         self.centroid = centroid
         self.neuron_number = neuron_number
         self.cover_angle = cover_angle
         self.min_radius = min_radius
         self.max_radius = max_radius
+        self.offset_delta = offset_delta
+        self.division_nb = division_nb
+        self.min_intensity = min_intensity
+        self.max_intensity = max_intensity
         self.start_list = []
         self.stop_list = []
         self.neuron_list = []
-        self.offset_delta = offset_delta
-        self.division_nb = division_nb
+        self.mask = None
 
     def create_start_and_stop(self, radius):
         # Non linear distribution arround self.centroid
@@ -53,7 +58,7 @@ class Spheroid:
                 neuronino.endPoint,
                 self.offset_delta,
                 self.division_nb,
-                random.randint(10, 200),
+                random.randint(self.min_intensity, self.max_intensity),
             )
             n.make_neuron()
             n.interpolate_neuron()
@@ -70,7 +75,7 @@ class Spheroid:
                 neuronino.endPoint,
                 self.offset_delta,
                 self.division_nb,
-                random.randint(10, 200),
+                random.randint(self.min_intensity, self.max_intensity),
             )
             n.make_neuron()
             n.interpolate_neuron()

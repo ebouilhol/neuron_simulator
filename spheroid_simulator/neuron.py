@@ -19,6 +19,7 @@ class Neuron:
         self.div_number = div_number
         self.segmentList = []
         self.intensity = intensity
+        self.anti_aliasing = random.randint(0, 10)
 
     def find_offset(self, seg):
         offset_max = sqrt(
