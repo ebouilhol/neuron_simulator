@@ -14,35 +14,30 @@
 
 
 
-# FIRST THINGS TO DO ON CREATION (this section should not be seen by anyone on your repo, follow and remove it at the end!!!)
+# Neuron Spheroid Simulator
 
-create a conda env with pre-commit installed:
+This simulator is able to quickly generate thousands of spheroid of neurons, with various noise background and various neuron intensity, shape, direction.
+The noise is simulated with a Poisson noise and a Perlin noise.
+The neuron signal is simulated with random start and stop positions between which random splits are added before line smoothing.
+Optionnaly, motion blur is also available, simulated with elastic transform.
+
+
+## Install
+Install dependencies with Conda
 ```sh
-conda create -n spheroid_simulator python=3.7
-conda install -c conda-forge pre-commit pytest coverage #if you are not root, maybe you need to install git and openssh with conda
-```
+conda env create environment.yml
 
-Once pre-commit installed run:
+```
+Then activate the environment:
+
 ```sh
-pre-commit install
+conda activate spheroid
+
 ```
-
-Each time you'll commit, a pipeline will run to check your files (pep8 formatting, search for unused code...)
-
-
-Last step is create an env.yml file in order to fix all python's modules and deps.
-To do that, you need to run:
-```sh
-conda env export > env.yaml
-```
-This file is mandatory for the installation script.
-
-## Installation
-
-To create a working env and setup all pre-commit hooks just run the installation script:
-```sh
-sh install.sh
-```
-
 
 ## Usage
+
+```shell
+python main.py
+
+```
