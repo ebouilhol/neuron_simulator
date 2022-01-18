@@ -14,23 +14,19 @@ class Spheroid:
         centroid,
         neuron_number,
         cover_angle,
-        min_radius,
-        max_radius,
+        min_max_radius,
         offset_delta,
         division_nb,
-        min_intensity,
-        max_intensity,
+        min_max_intensity,
     ):
 
         self.centroid = centroid
         self.neuron_number = neuron_number
         self.cover_angle = cover_angle
-        self.min_radius = min_radius
-        self.max_radius = max_radius
+        self.min_max_radius = min_max_radius
         self.offset_delta = offset_delta
         self.division_nb = division_nb
-        self.min_intensity = min_intensity
-        self.max_intensity = max_intensity
+        self.min_max_intensity = min_max_intensity
         self.start_list = []
         self.stop_list = []
         self.neuron_list = []
@@ -50,15 +46,16 @@ class Spheroid:
 
     def create_neurons(self):
         for _ in range(self.neuron_number):
-            start = Spheroid.create_start_and_stop(self, self.min_radius)
-            stop = Spheroid.create_start_and_stop(self, self.max_radius)
+            start = Spheroid.create_start_and_stop(self, self.min_max_radius[0])
+            stop = Spheroid.create_start_and_stop(self, self.min_max_radius[1])
             neuronino = Segment(start, stop)
             n = Neuron(
                 neuronino.startPoint,
                 neuronino.endPoint,
-                self.offset_delta,
-                self.division_nb,
-                random.randint(self.min_intensity, self.max_intensity),
+                random.randint(self.offset_delta[0], self.offset_delta[1]),
+                random.randint(self.division_nb[0], self.division_nb[1]),
+                random.randint(self.min_max_intensity[0], self.min_max_intensity[1]),
+                anti_aa=random.randint(0, 10),
             )
             n.make_neuron()
             n.interpolate_neuron()
@@ -73,9 +70,10 @@ class Spheroid:
             n = Neuron(
                 neuronino.startPoint,
                 neuronino.endPoint,
-                self.offset_delta,
-                self.division_nb,
-                random.randint(self.min_intensity, self.max_intensity),
+                random.randint(self.offset_delta[0], self.offset_delta[1]),
+                random.randint(self.division_nb[0], self.division_nb[1]),
+                random.randint(self.min_max_intensity[0], self.min_max_intensity[1]),
+                anti_aa=random.randint(0, 10),
             )
             n.make_neuron()
             n.interpolate_neuron()

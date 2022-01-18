@@ -6,14 +6,15 @@ from scipy import signal
 class Nucleus:
     """Definition d'un Noyau"""
 
-    def __init__(self, kernel_size, std, nucleus_size, radius):
+    def __init__(self, kernel_size, std, image_size, radius, centroid):
         self.mask = None
         self.nucleus = None
         self.kernel = None
         self.kernel_size = kernel_size
         self.std = std
-        self.nucleus_size = nucleus_size
+        self.image_size = image_size
         self.radius = radius
+        self.centroid = centroid
 
     def create_nucleus(self):
         """Returns a 2D Gaussian kernel."""
@@ -31,8 +32,8 @@ class Nucleus:
         self.nucleus = 1 - self.nucleus
 
     def create_circular_mask(self):
-        Y, X = np.ogrid[: self.nucleus_size, : self.nucleus_size]
+        Y, X = np.ogrid[: self.image_size, : self.image_size]
         dist_from_center = np.sqrt(
-            (X - self.nucleus_size / 2) ** 2 + (Y - self.nucleus_size / 2) ** 2
+            (X - self.centroid.y) ** 2 + (Y - self.centroid.x) ** 2
         )
         self.mask = dist_from_center <= self.radius

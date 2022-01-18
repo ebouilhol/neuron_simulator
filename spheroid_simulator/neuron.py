@@ -12,14 +12,14 @@ from segment import Segment
 class Neuron:
     """Definition d'un neuron"""
 
-    def __init__(self, start, stop, offset_delta, div_number, intensity):
+    def __init__(self, start, stop, offset_delta, div_number, intensity, anti_aa):
         self.start = start
         self.stop = stop
         self.offset_delta = offset_delta
         self.div_number = div_number
         self.segmentList = []
         self.intensity = intensity
-        self.anti_aliasing = random.randint(0, 10)
+        self.anti_aliasing = anti_aa
 
     def find_offset(self, seg):
         offset_max = sqrt(
